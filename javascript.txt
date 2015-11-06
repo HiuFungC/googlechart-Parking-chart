@@ -1,0 +1,34 @@
+google.load('visualization', '1', {packages: ['corechart', 'bar']});
+google.setOnLoadCallback(drawStacked);
+
+function drawStacked() {
+     var data = google.visualization.arrayToDataTable([
+        ['Genre', '', '','',
+        { role: 'annotation' },{ role: 'annotation' } ],
+        ['Weekday', 12, 12, 0,'$0.07per/min','$0.14per/min'],
+        ['Saturday', 16, 8, 0, '$0.7per/min','$0.17per/min'],
+        ['Sunday', 24, 0, 0, 'FREE','']
+      ]);
+    	 var view = new google.visualization.DataView(data);
+          view.setColumns([0, 1,
+                       { 
+                         style:'text-align:center',                      
+                         sourceColumn: 4,
+                         type: "string",
+                         role: "annotation" },
+                       2,{ 
+                         style:'text-align:center',                      
+                         sourceColumn: 5,
+                         type: "string",
+                         role: "annotation" }]);
+      var options = {
+        width: 600,
+        height: 400,
+        legend: { position: 'none'},
+        bar: { groupWidth: '75%' },
+        isStacked: true,
+        title: 'Parking Rate'
+      };
+      var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+       chart.draw(view, options);
+    }
